@@ -10,7 +10,7 @@ import (
 	"github.com/thuanan7/SimpleBank-Golang/util"
 )
 
-func createRandomAccount(t *testing.T) Account {
+func CreateRandomAccount(t *testing.T) Account {
 	arg := CreateAccountParams{
 		Owner:    util.RandomOwner(),
 		Balance:  util.RandomMoney(),
@@ -31,11 +31,11 @@ func createRandomAccount(t *testing.T) Account {
 }
 
 func TestCreateAccount(t *testing.T) {
-	createRandomAccount(t)
+	CreateRandomAccount(t)
 }
 
 func TestGetAccount(t *testing.T) {
-	account1 := createRandomAccount(t)
+	account1 := CreateRandomAccount(t)
 	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
 	require.NoError(t, err)
 	require.NotEmpty(t, account2)
@@ -48,7 +48,7 @@ func TestGetAccount(t *testing.T) {
 }
 
 func TestUpdateAccount(t *testing.T) {
-	account1 := createRandomAccount(t)
+	account1 := CreateRandomAccount(t)
 	arg := UpdateAccountParams{
 		ID:      account1.ID,
 		Balance: util.RandomMoney(),
@@ -65,7 +65,7 @@ func TestUpdateAccount(t *testing.T) {
 }
 
 func TestDeleteAccount(t *testing.T) {
-	account1 := createRandomAccount(t)
+	account1 := CreateRandomAccount(t)
 	err := testQueries.DeleteAccount(context.Background(), account1.ID)
 	require.NoError(t, err)
 
@@ -77,7 +77,7 @@ func TestDeleteAccount(t *testing.T) {
 
 func TestListAccounts(t *testing.T) {
 	for i := 0; i < 10; i++ {
-		createRandomAccount(t)
+		CreateRandomAccount(t)
 	}
 
 	arg := ListAccountsParams{
