@@ -37,6 +37,13 @@ type MyCustomClaims struct {
 	jwt.RegisteredClaims
 }
 
+func (payload *Payload) Valid() error {
+	if time.Now().After(payload.ExpiredAt) {
+		return ErrInvalidToken
+	}
+	return nil
+}
+
 func NewMyCustomClaims(payload *Payload) *MyCustomClaims {
 	return &MyCustomClaims{
 		Payload: *payload,
